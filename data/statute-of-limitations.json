@@ -1,0 +1,352 @@
+[
+  {
+    "state": "Alabama",
+    "code": "AL",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury. Tolling for minors until age 19."
+  },
+  {
+    "state": "Alaska",
+    "code": "AK",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury or when it should have been discovered."
+  },
+  {
+    "state": "Arizona",
+    "code": "AZ",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from injury or discovery. Tolling for minors, mental incapacity."
+  },
+  {
+    "state": "Arkansas",
+    "code": "AR",
+    "deadline": "3 years",
+    "discoveryRule": false,
+    "notes": "3 years from injury. Limited discovery rule exceptions."
+  },
+  {
+    "state": "California",
+    "code": "CA",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery or when reasonably should have discovered. Tolling for minors."
+  },
+  {
+    "state": "Colorado",
+    "code": "CO",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury. Tolling for minors, mental incapacity."
+  },
+  {
+    "state": "Connecticut",
+    "code": "CT",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from injury or discovery. Product liability may vary."
+  },
+  {
+    "state": "Delaware",
+    "code": "DE",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury or when should have been discovered."
+  },
+  {
+    "state": "Florida",
+    "code": "FL",
+    "deadline": "4 years",
+    "discoveryRule": true,
+    "notes": "4 years from injury or discovery (product liability). Medical malpractice: 2 years."
+  },
+  {
+    "state": "Georgia",
+    "code": "GA",
+    "deadline": "2 years",
+    "discoveryRule": false,
+    "notes": "2 years from injury. Limited discovery rule for fraud/concealment."
+  },
+  {
+    "state": "Hawaii",
+    "code": "HI",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury or when reasonably discoverable."
+  },
+  {
+    "state": "Idaho",
+    "code": "ID",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery. Tolling for minors until age 18."
+  },
+  {
+    "state": "Illinois",
+    "code": "IL",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury. Tolling for minors, disabilities."
+  },
+  {
+    "state": "Indiana",
+    "code": "IN",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from injury or discovery. Product liability repose: 10 years."
+  },
+  {
+    "state": "Iowa",
+    "code": "IA",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury or when should have been discovered."
+  },
+  {
+    "state": "Kansas",
+    "code": "KS",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery. Tolling for minors, mental illness."
+  },
+  {
+    "state": "Kentucky",
+    "code": "KY",
+    "deadline": "1 year",
+    "discoveryRule": false,
+    "notes": "1 year from injury. Strict—discovery rule rarely applies."
+  },
+  {
+    "state": "Louisiana",
+    "code": "LA",
+    "deadline": "1 year",
+    "discoveryRule": true,
+    "notes": "1 year from discovery of injury or when should have been discovered."
+  },
+  {
+    "state": "Maine",
+    "code": "ME",
+    "deadline": "6 years",
+    "discoveryRule": false,
+    "notes": "6 years from injury (product liability). Discovery rule limited."
+  },
+  {
+    "state": "Maryland",
+    "code": "MD",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from injury or discovery. Tolling for minors until age 21."
+  },
+  {
+    "state": "Massachusetts",
+    "code": "MA",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from discovery of injury. Tolling for minors, mental incapacity."
+  },
+  {
+    "state": "Michigan",
+    "code": "MI",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from injury or discovery. Product liability repose: varies."
+  },
+  {
+    "state": "Minnesota",
+    "code": "MN",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury. Tolling for minors, mental illness."
+  },
+  {
+    "state": "Mississippi",
+    "code": "MS",
+    "deadline": "3 years",
+    "discoveryRule": false,
+    "notes": "3 years from injury. Discovery rule rarely applies."
+  },
+  {
+    "state": "Missouri",
+    "code": "MO",
+    "deadline": "5 years",
+    "discoveryRule": true,
+    "notes": "5 years from injury or discovery (product liability). Strict liability cases."
+  },
+  {
+    "state": "Montana",
+    "code": "MT",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from discovery of injury. Tolling for minors until age 19."
+  },
+  {
+    "state": "Nebraska",
+    "code": "NE",
+    "deadline": "4 years",
+    "discoveryRule": true,
+    "notes": "4 years from injury or discovery. Product liability repose: 10 years."
+  },
+  {
+    "state": "Nevada",
+    "code": "NV",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury or when should have been discovered."
+  },
+  {
+    "state": "New Hampshire",
+    "code": "NH",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from injury or discovery. Tolling for minors, mental illness."
+  },
+  {
+    "state": "New Jersey",
+    "code": "NJ",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury. Tolling for minors, fraud."
+  },
+  {
+    "state": "New Mexico",
+    "code": "NM",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from discovery of injury. Tolling for minors until age 18."
+  },
+  {
+    "state": "New York",
+    "code": "NY",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from injury or discovery. Tolling for minors, mental incapacity."
+  },
+  {
+    "state": "North Carolina",
+    "code": "NC",
+    "deadline": "3 years",
+    "discoveryRule": false,
+    "notes": "3 years from injury. Discovery rule very limited."
+  },
+  {
+    "state": "North Dakota",
+    "code": "ND",
+    "deadline": "6 years",
+    "discoveryRule": true,
+    "notes": "6 years from discovery of injury (product liability). Generous deadline."
+  },
+  {
+    "state": "Ohio",
+    "code": "OH",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery. Product liability repose: 10 years."
+  },
+  {
+    "state": "Oklahoma",
+    "code": "OK",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury. Tolling for minors, mental incapacity."
+  },
+  {
+    "state": "Oregon",
+    "code": "OR",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery. Tolling for minors until age 18."
+  },
+  {
+    "state": "Pennsylvania",
+    "code": "PA",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury or when should have been discovered."
+  },
+  {
+    "state": "Rhode Island",
+    "code": "RI",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from discovery. Product liability repose: 10 years."
+  },
+  {
+    "state": "South Carolina",
+    "code": "SC",
+    "deadline": "3 years",
+    "discoveryRule": false,
+    "notes": "3 years from injury. Discovery rule limited to fraud cases."
+  },
+  {
+    "state": "South Dakota",
+    "code": "SD",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from discovery of injury. Tolling for minors, mental illness."
+  },
+  {
+    "state": "Tennessee",
+    "code": "TN",
+    "deadline": "1 year",
+    "discoveryRule": true,
+    "notes": "1 year from injury or discovery. Strict deadline—act quickly."
+  },
+  {
+    "state": "Texas",
+    "code": "TX",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery of injury. Product liability repose: 15 years."
+  },
+  {
+    "state": "Utah",
+    "code": "UT",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery. Product liability repose: 6 years."
+  },
+  {
+    "state": "Vermont",
+    "code": "VT",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from discovery of injury. Tolling for minors, mental illness."
+  },
+  {
+    "state": "Virginia",
+    "code": "VA",
+    "deadline": "2 years",
+    "discoveryRule": false,
+    "notes": "2 years from injury. Discovery rule rarely applies."
+  },
+  {
+    "state": "Washington",
+    "code": "WA",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from discovery of injury. Product liability repose: 12 years."
+  },
+  {
+    "state": "West Virginia",
+    "code": "WV",
+    "deadline": "2 years",
+    "discoveryRule": true,
+    "notes": "2 years from discovery. Tolling for minors, fraud."
+  },
+  {
+    "state": "Wisconsin",
+    "code": "WI",
+    "deadline": "3 years",
+    "discoveryRule": true,
+    "notes": "3 years from discovery of injury. Product liability repose: varies."
+  },
+  {
+    "state": "Wyoming",
+    "code": "WY",
+    "deadline": "4 years",
+    "discoveryRule": false,
+    "notes": "4 years from injury. Discovery rule limited."
+  }
+]
