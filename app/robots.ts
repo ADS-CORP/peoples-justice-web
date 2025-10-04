@@ -37,11 +37,29 @@ export default function robots(): MetadataRoute.Robots {
           '/admin/', // Admin area (if exists)
         ],
       },
-      // Aggressive crawlers - rate limit
+      // Google AI (separate from Search) - rate limit
       {
-        userAgent: ['GPTBot', 'ChatGPT-User', 'CCBot', 'anthropic-ai'],
-        allow: ['/'], // Allow for AI training but with crawl-delay
-        crawlDelay: 10, // 10 seconds between requests
+        userAgent: 'Google-Extended', // AI training, NOT Search
+        allow: ['/'], // Allow AI training
+        crawlDelay: 10,
+      },
+      // OpenAI crawlers - rate limit
+      {
+        userAgent: ['GPTBot', 'ChatGPT-User'],
+        allow: ['/'],
+        crawlDelay: 10,
+      },
+      // Anthropic (Claude) crawlers - rate limit
+      {
+        userAgent: ['ClaudeBot', 'anthropic-ai'],
+        allow: ['/'],
+        crawlDelay: 10,
+      },
+      // Other AI crawlers - rate limit
+      {
+        userAgent: ['CCBot', 'PerplexityBot', 'Omgilibot'],
+        allow: ['/'],
+        crawlDelay: 10,
       },
       // Block bad bots
       {
