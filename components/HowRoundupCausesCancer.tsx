@@ -31,25 +31,85 @@ export default function HowRoundupCausesCancer() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-4 mb-6">
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-gray-900 mb-2">⚠️ What Makes It Dangerous</h4>
-            <ul className="text-sm text-gray-700 space-y-1">
-              <li>• Absorbs through skin during use</li>
-              <li>• Can be inhaled as spray mist</li>
-              <li>• Builds up in body over time</li>
-              <li>• Effects worsen with repeated exposure</li>
-              <li>• No "safe" exposure level established</li>
+          <div className="bg-gradient-to-br from-red-50 to-orange-50 border-2 border-orange-200 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center gap-2 mb-3">
+              <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <h4 className="font-bold text-orange-900">What Makes It Dangerous</h4>
+            </div>
+            <ul className="text-sm text-gray-700 space-y-2">
+              <li className="flex items-start">
+                <svg className="w-4 h-4 text-orange-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+                <span>Absorbs through skin during use</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-4 h-4 text-orange-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+                <span>Can be inhaled as spray mist</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-4 h-4 text-orange-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+                <span>Builds up in body over time</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-4 h-4 text-orange-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+                <span>Effects worsen with repeated exposure</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-4 h-4 text-orange-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+                <span>No "safe" exposure level established</span>
+              </li>
             </ul>
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-gray-900 mb-2">🔬 Scientific Consensus</h4>
-            <ul className="text-sm text-gray-700 space-y-1">
-              <li>• WHO classified as "probable carcinogen" (2015)</li>
-              <li>• 41% increased NHL risk in heavy users</li>
-              <li>• Over 800 peer-reviewed studies</li>
-              <li>• Internal Monsanto emails confirm risks</li>
-              <li>• Banned in 20+ countries worldwide</li>
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center gap-2 mb-3">
+              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <h4 className="font-bold text-blue-900">Scientific Consensus</h4>
+            </div>
+            <ul className="text-sm text-gray-700 space-y-2">
+              <li className="flex items-start">
+                <svg className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>WHO classified as "probable carcinogen" (2015)</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>41% increased NHL risk in heavy users</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Over 800 peer-reviewed studies</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Internal Monsanto emails confirm risks</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Banned in 20+ countries worldwide</span>
+              </li>
             </ul>
           </div>
         </div>

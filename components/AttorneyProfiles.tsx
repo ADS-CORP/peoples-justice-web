@@ -194,25 +194,6 @@ export default function AttorneyProfiles({ enabled = true }: AttorneyProfilesPro
           </li>
         </ul>
       </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
-          <div className="text-3xl font-bold text-gray-900 mb-1">100+</div>
-          <div className="text-sm text-gray-600">Attorneys in Network</div>
-        </div>
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
-          <div className="text-3xl font-bold text-gray-900 mb-1">15K+</div>
-          <div className="text-sm text-gray-600">Cases Handled</div>
-        </div>
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
-          <div className="text-3xl font-bold text-gray-900 mb-1">50+</div>
-          <div className="text-sm text-gray-600">States Covered</div>
-        </div>
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
-          <div className="text-3xl font-bold text-gray-900 mb-1">24/7</div>
-          <div className="text-sm text-gray-600">Availability</div>
-        </div>
-      </div>
     </div>
   );
 }

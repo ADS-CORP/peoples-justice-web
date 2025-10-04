@@ -113,7 +113,11 @@ export const roundupFAQs: FAQItem[] = [
   },
   {
     question: "How do I know if I missed the deadline?",
-    answer: "Deadlines (statutes of limitations) vary by state—usually 1-3 years from your diagnosis date. Some states have a discovery rule that extends the deadline. Contact an attorney immediately to check your state's deadline. Missing it means you lose your right to compensation."
+    answer: "Deadlines (statutes of limitations) vary by state—usually 1-3 years from your diagnosis date. However, many states use a 'discovery rule' that extends the deadline. The clock may start when you discovered the connection between Roundup and your cancer, not when you were diagnosed. Because cancer can develop 10-15 years after exposure, you may still qualify even if diagnosed years ago. Contact an attorney immediately to check your state's deadline—don't assume you've missed it."
+  },
+  {
+    question: "Can I file if I was diagnosed years ago (before 2020)?",
+    answer: "Possibly. While most firms prioritize recent diagnoses (2024-2025), cases from earlier years may still qualify depending on your state's discovery rule and when you learned about the Roundup-cancer connection. The IARC classified glyphosate as carcinogenic in 2015, and major trials brought public attention in 2018-2019. If you only recently discovered this link, you may still have time to file. Submit your information—an attorney can review your specific timeline and state laws to determine eligibility."
   },
   {
     question: "Can I still use Roundup in my yard?",

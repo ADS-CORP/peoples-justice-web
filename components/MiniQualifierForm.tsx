@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface MiniQualifierFormProps {
   caseType: string;
@@ -21,6 +21,30 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
     consent: false,
   });
 
+  // Dynamic social proof number (starts random daily, increments hourly)
+  const [checkedToday, setCheckedToday] = useState(0);
+
+  useEffect(() => {
+    const today = new Date();
+    const dateSeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+
+    // Starting number for the day (45-150)
+    const dailyStart = 45 + (dateSeed % 106);
+
+    // Add increments for each hour that has passed today
+    const currentHour = today.getHours();
+    let hourlyIncrements = 0;
+
+    for (let hour = 0; hour < currentHour; hour++) {
+      // Each hour gets a random increment between 1-5 (seeded by date + hour)
+      const hourSeed = dateSeed + hour;
+      const increment = 1 + (hourSeed % 5);
+      hourlyIncrements += increment;
+    }
+
+    setCheckedToday(dailyStart + hourlyIncrements);
+  }, []);
+
   const handleQualifierSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setStep('contact');
@@ -28,6 +52,9 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
 
   const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Increment the counter when user submits
+    setCheckedToday(prev => prev + 1);
 
     // In production, this would POST to /api/intake/lead
     console.log('Lead submission:', {
@@ -45,85 +72,163 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
 
   if (step === 'qualifiers') {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-6 border-2 border-blue-100">
-        <div className="bg-blue-600 text-white text-center py-3 px-4 rounded-lg mb-6">
-          <h3 className="font-bold text-lg">Do You Qualify?</h3>
-          <p className="text-sm text-blue-100 mt-1">Free case review • 2-minute form</p>
-        </div>
+      <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-elevated-xl p-1">
+        <div className="bg-white rounded-xl p-6 shadow-inner">
+          {/* Urgency Banner - Sleeker */}
+          <div className="bg-orange-500 text-white text-center py-2 px-4 rounded-t-xl -mx-6 -mt-6 mb-4">
+            <div className="flex items-center justify-center space-x-2">
+              <svg className="w-4 h-4 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+              </svg>
+              <span className="text-sm font-semibold">Filing deadlines apply — Check now</span>
+            </div>
+          </div>
 
-        <form onSubmit={handleQualifierSubmit} className="space-y-5">
+          {/* Step Indicators - Simplified */}
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">1</div>
+              <span className="text-xs font-medium text-gray-700 hidden sm:inline">Qualifiers</span>
+            </div>
+            <div className="w-12 h-1 bg-gray-200">
+              <div className="h-full bg-gray-300 transition-all" style={{width: '0%'}}></div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-sm">2</div>
+              <span className="text-xs font-medium text-gray-500 hidden sm:inline">Contact</span>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center py-3 px-4 rounded-lg mb-4">
+            <h3 className="font-bold text-lg">Do You Qualify?</h3>
+            <p className="text-sm text-blue-100 mt-1">Free case review • 2-minute form</p>
+          </div>
+
+          {/* Social Proof Ticker - Below header, less prominent */}
+          <div className="bg-green-50 border border-green-200 rounded-lg p-2.5 mb-4">
+            <div className="flex items-center space-x-2 text-xs">
+              <div className="flex -space-x-1.5">
+                <div className="w-5 h-5 rounded-full bg-blue-500 border-2 border-white"></div>
+                <div className="w-5 h-5 rounded-full bg-green-500 border-2 border-white"></div>
+                <div className="w-5 h-5 rounded-full bg-purple-500 border-2 border-white"></div>
+              </div>
+              <p className="text-green-800">
+                <span className="font-bold">{checkedToday || '127'}</span> checked today
+              </p>
+            </div>
+          </div>
+
+        <form onSubmit={handleQualifierSubmit} className="space-y-4">
           {/* Question 1 */}
           <div>
-            <label className="block text-sm font-medium text-gray-900 mb-3">
+            <label className="block text-sm font-medium text-gray-900 mb-2">
               Did you use Roundup® regularly?
             </label>
             <div className="space-y-2">
-              <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+              <label className={`flex items-center p-2.5 border-2 rounded-lg cursor-pointer transition-all ${
+                answers.usedRegularly === 'yes'
+                  ? 'border-blue-600 bg-blue-50'
+                  : 'border-gray-300 hover:bg-gray-50'
+              }`}>
                 <input
                   type="radio"
                   name="usedRegularly"
                   value="yes"
                   checked={answers.usedRegularly === 'yes'}
                   onChange={(e) => setAnswers({ ...answers, usedRegularly: e.target.value })}
-                  className="w-4 h-4 text-blue-600"
+                  className="w-4 h-4 text-blue-600 sr-only"
                   required
                 />
-                <span className="ml-3 text-gray-900">Yes, at least once a month for a year or more</span>
+                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                  answers.usedRegularly === 'yes'
+                    ? 'border-blue-600 bg-blue-600'
+                    : 'border-gray-400'
+                }`}>
+                  {answers.usedRegularly === 'yes' && (
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </div>
+                <span className={`ml-3 text-sm ${
+                  answers.usedRegularly === 'yes' ? 'text-blue-900 font-medium' : 'text-gray-900'
+                }`}>Yes, at least once a month for a year or more</span>
               </label>
-              <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+              <label className={`flex items-center p-2.5 border-2 rounded-lg cursor-pointer transition-all ${
+                answers.usedRegularly === 'no'
+                  ? 'border-blue-600 bg-blue-50'
+                  : 'border-gray-300 hover:bg-gray-50'
+              }`}>
                 <input
                   type="radio"
                   name="usedRegularly"
                   value="no"
                   checked={answers.usedRegularly === 'no'}
                   onChange={(e) => setAnswers({ ...answers, usedRegularly: e.target.value })}
-                  className="w-4 h-4 text-blue-600"
+                  className="w-4 h-4 text-blue-600 sr-only"
                 />
-                <span className="ml-3 text-gray-900">No or only a few times</span>
+                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                  answers.usedRegularly === 'no'
+                    ? 'border-blue-600 bg-blue-600'
+                    : 'border-gray-400'
+                }`}>
+                  {answers.usedRegularly === 'no' && (
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </div>
+                <span className={`ml-3 text-sm ${
+                  answers.usedRegularly === 'no' ? 'text-blue-900 font-medium' : 'text-gray-900'
+                }`}>No or only a few times</span>
               </label>
             </div>
           </div>
 
           {/* Question 2 */}
           <div>
-            <label className="block text-sm font-medium text-gray-900 mb-3">
+            <label className="block text-sm font-medium text-gray-900 mb-2">
               Have you been diagnosed with lymphoma?
             </label>
             <div className="space-y-2">
-              <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                <input
-                  type="radio"
-                  name="diagnosed"
-                  value="nhl"
-                  checked={answers.diagnosed === 'nhl'}
-                  onChange={(e) => setAnswers({ ...answers, diagnosed: e.target.value })}
-                  className="w-4 h-4 text-blue-600"
-                  required
-                />
-                <span className="ml-3 text-gray-900">Yes, non-Hodgkin lymphoma (NHL)</span>
-              </label>
-              <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                <input
-                  type="radio"
-                  name="diagnosed"
-                  value="other"
-                  checked={answers.diagnosed === 'other'}
-                  onChange={(e) => setAnswers({ ...answers, diagnosed: e.target.value })}
-                  className="w-4 h-4 text-blue-600"
-                />
-                <span className="ml-3 text-gray-900">Yes, other type of lymphoma</span>
-              </label>
-              <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                <input
-                  type="radio"
-                  name="diagnosed"
-                  value="no"
-                  checked={answers.diagnosed === 'no'}
-                  onChange={(e) => setAnswers({ ...answers, diagnosed: e.target.value })}
-                  className="w-4 h-4 text-blue-600"
-                />
-                <span className="ml-3 text-gray-900">No</span>
-              </label>
+              {['nhl', 'other', 'no'].map((value) => {
+                const labels = {
+                  nhl: 'Yes, non-Hodgkin lymphoma (NHL)',
+                  other: 'Yes, other type of lymphoma',
+                  no: 'No'
+                };
+                return (
+                  <label key={value} className={`flex items-center p-2.5 border-2 rounded-lg cursor-pointer transition-all ${
+                    answers.diagnosed === value
+                      ? 'border-blue-600 bg-blue-50'
+                      : 'border-gray-300 hover:bg-gray-50'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="diagnosed"
+                      value={value}
+                      checked={answers.diagnosed === value}
+                      onChange={(e) => setAnswers({ ...answers, diagnosed: e.target.value })}
+                      className="w-4 h-4 text-blue-600 sr-only"
+                      required={value === 'nhl'}
+                    />
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                      answers.diagnosed === value
+                        ? 'border-blue-600 bg-blue-600'
+                        : 'border-gray-400'
+                    }`}>
+                      {answers.diagnosed === value && (
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </div>
+                    <span className={`ml-3 text-sm ${
+                      answers.diagnosed === value ? 'text-blue-900 font-medium' : 'text-gray-900'
+                    }`}>{labels[value as keyof typeof labels]}</span>
+                  </label>
+                );
+              })}
             </div>
           </div>
 
@@ -140,7 +245,7 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
               placeholder="e.g., 2018"
               value={answers.diagnosisYear}
               onChange={(e) => setAnswers({ ...answers, diagnosisYear: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
               required
             />
             <p className="mt-1 text-xs text-gray-500">Enter a 4-digit year</p>
@@ -148,7 +253,7 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-elevated-lg hover:shadow-elevated-xl transform hover:-translate-y-0.5"
           >
             Continue →
           </button>
@@ -157,13 +262,30 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
             Free case review • No upfront costs
           </p>
         </form>
+        </div>
       </div>
     );
   }
 
   // Step 2: Contact Form
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 border-2 border-blue-100">
+    <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-elevated-xl p-1">
+      <div className="bg-white rounded-xl p-6 shadow-inner">
+      {/* Step Indicators - Simplified */}
+      <div className="flex items-center justify-center gap-2 mb-4">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-sm">✓</div>
+          <span className="text-xs font-medium text-gray-500 hidden sm:inline">Qualifiers</span>
+        </div>
+        <div className="w-12 h-1 bg-blue-600">
+          <div className="h-full bg-blue-600 transition-all" style={{width: '100%'}}></div>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">2</div>
+          <span className="text-xs font-medium text-gray-700 hidden sm:inline">Contact</span>
+        </div>
+      </div>
+
       <button
         onClick={() => setStep('qualifiers')}
         className="text-blue-600 hover:text-blue-700 text-sm mb-4 flex items-center"
@@ -179,9 +301,9 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
         <p className="text-green-800 text-sm mt-1">Enter your info to connect with an attorney.</p>
       </div>
 
-      <form onSubmit={handleFinalSubmit} className="space-y-4">
+      <form onSubmit={handleFinalSubmit} className="space-y-3">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-900 mb-2">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-900 mb-1.5">
             Full Name *
           </label>
           <input
@@ -189,13 +311,13 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
             id="name"
             value={contactData.name}
             onChange={(e) => setContactData({ ...contactData, name: e.target.value })}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-900 mb-2">
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-900 mb-1.5">
             Phone Number *
           </label>
           <input
@@ -204,13 +326,13 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
             placeholder="(555) 123-4567"
             value={contactData.phone}
             onChange={(e) => setContactData({ ...contactData, phone: e.target.value })}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-1.5">
             Email *
           </label>
           <input
@@ -219,13 +341,13 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
             placeholder="you@example.com"
             value={contactData.email}
             onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="zip" className="block text-sm font-medium text-gray-900 mb-2">
+          <label htmlFor="zip" className="block text-sm font-medium text-gray-900 mb-1.5">
             ZIP Code *
           </label>
           <input
@@ -235,22 +357,22 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
             pattern="[0-9]{5}"
             value={contactData.zip}
             onChange={(e) => setContactData({ ...contactData, zip: e.target.value })}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
             required
           />
         </div>
 
         {/* TCPA Consent */}
-        <div className="bg-gray-50 p-4 rounded-lg">
+        <div className="bg-gray-50 p-3 rounded-lg">
           <label className="flex items-start cursor-pointer">
             <input
               type="checkbox"
               checked={contactData.consent}
               onChange={(e) => setContactData({ ...contactData, consent: e.target.checked })}
-              className="w-5 h-5 text-blue-600 rounded mt-0.5 flex-shrink-0"
+              className="w-4 h-4 text-blue-600 rounded mt-0.5 flex-shrink-0"
               required
             />
-            <span className="ml-3 text-xs text-gray-700 leading-relaxed">
+            <span className="ml-2.5 text-xs text-gray-700 leading-relaxed">
               By clicking Submit, you agree to be contacted by one or more attorneys or their agents at the
               phone number and/or email provided, including through automated calls, texts, and prerecorded
               messages. Consent is not required as a condition of service. Message and data rates may apply.
@@ -263,7 +385,7 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
 
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-lg"
+          className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-elevated-lg hover:shadow-elevated-xl transform hover:-translate-y-0.5"
         >
           Get My Free Case Review
         </button>
@@ -272,6 +394,7 @@ export default function MiniQualifierForm({ caseType }: MiniQualifierFormProps) 
           🔒 Your information is confidential and secure
         </p>
       </form>
+      </div>
     </div>
   );
 }

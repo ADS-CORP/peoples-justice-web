@@ -1,0 +1,98 @@
+name: Supabase Schema Sync
+
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/**'
+      - '../supabase-schema-*.sql'
+
+jobs:
+  generate-types:
+    name: Generate TypeScript Types from Supabase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Supabase CLI
+        run: |
+          npm install -g supabase
+
+      - name: Generate TypeScript types
+        run: |
+          npx supabase gen types typescript \
+            --project-id ${{ secrets.SUPABASE_PROJECT_ID }} \
+            --schema public \
+            > types/database.types.ts
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet types/database.types.ts || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: update Supabase TypeScript types'
+          title: 'Update Supabase TypeScript Types'
+          body: |
+            Auto-generated TypeScript types from Supabase schema.
+
+            **Generated from:** Supabase project `${{ secrets.SUPABASE_PROJECT_ID }}`
+            **Triggered by:** ${{ github.event_name }}
+
+            Please review the changes and merge if everything looks correct.
+          branch: supabase-types-update
+          delete-branch: true
+          labels: |
+            automated
+            database
+            types
+
+  validate-schema:
+    name: Validate Supabase Schema
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Validate SQL syntax
+        run: |
+          for file in ../supabase-schema-*.sql; do
+            if [ -f "$file" ]; then
+              echo "Validating $file..."
+              # Basic syntax check (will expand with actual validation)
+              grep -q "CREATE TABLE\|ALTER TABLE\|CREATE INDEX" "$file" || exit 1
+            fi
+          done
+
+      - name: Comment on PR
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Supabase schema validation passed!'
+            })

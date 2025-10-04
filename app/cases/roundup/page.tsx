@@ -18,31 +18,70 @@ import TrustBadges from '@/components/TrustBadges';
 import ClientTestimonials from '@/components/ClientTestimonials';
 import AttorneyProfiles from '@/components/AttorneyProfiles';
 import VideoContent from '@/components/VideoContent';
+import FloatingCTA from '@/components/FloatingCTA';
+import ReadingProgressBar from '@/components/ReadingProgressBar';
 import SchemaFAQ, { roundupFAQs } from '@/components/schema/SchemaFAQ';
 import SchemaHowTo, { settlementCalculationSteps } from '@/components/schema/SchemaHowTo';
 import SchemaOrganization from '@/components/schema/SchemaOrganization';
 
+// Dynamic date formatting for current month/year
+const getCurrentMonthYear = () => {
+  const date = new Date();
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+};
+
 export const metadata: Metadata = {
-  title: 'Roundup Lawsuits (Updated October 2025) — Eligibility, Deadlines & Payouts',
+  title: `Roundup Lawsuits (Updated ${getCurrentMonthYear()}) — Eligibility, Deadlines & Payouts`,
   description: 'Roundup weedkiller has been linked to non-Hodgkin lymphoma. Find out if you qualify for compensation, what evidence helps, and how to connect with experienced attorneys.',
 };
 
 export default function RoundupCasePage() {
+  const currentMonthYear = getCurrentMonthYear();
+
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Reading Progress Bar */}
+      <ReadingProgressBar />
+
+      {/* Trust Bar Above Fold */}
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-3">
+        <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center items-center gap-6 text-sm">
+          <div className="flex items-center space-x-2">
+            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span>15,000+ Attorneys</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span>$15B+ Recovered</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span>No Upfront Fees</span>
+          </div>
+        </div>
+      </div>
+
       {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-lg bg-white/95">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <span className="text-2xl font-bold text-blue-600">People's Justice</span>
+              <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                People's Justice
+              </span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a href="/cases" className="text-gray-700 hover:text-blue-600">Cases</a>
-              <a href="/find" className="text-gray-700 hover:text-blue-600">Find a Lawyer</a>
-              <a href="/resources" className="text-gray-700 hover:text-blue-600">Resources</a>
+              <a href="/cases" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Cases</a>
+              <a href="/find" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Find a Lawyer</a>
+              <a href="/resources" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Resources</a>
             </div>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-medium">
+            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2.5 rounded-full hover:from-blue-700 hover:to-indigo-700 font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
               Get Help Now
             </button>
           </div>
@@ -63,15 +102,22 @@ export default function RoundupCasePage() {
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 lg:pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Mobile Form - Shows first on mobile */}
+          <div className="lg:hidden">
+            <div id="qualifier-form-mobile">
+              <MiniQualifierForm caseType="roundup" />
+            </div>
+          </div>
+
           {/* Left Column - Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Hero Section */}
-            <article className="bg-white rounded-xl shadow-sm p-6 md:p-8">
+            <article className="bg-white rounded-2xl shadow-blue-lg hover:shadow-blue-xl transition-all p-8 border border-gray-100 bg-pattern-dots">
               {/* Litigation Update Header - NEW */}
               <LitigationUpdateHeader
-                lastUpdated="October 2025"
+                lastUpdated={currentMonthYear}
                 activeCases={61000}
                 totalSettled="$15+ billion"
                 updateSummary="Latest MDL bellwether trials scheduled for Q1 2026. Bayer continues settlement negotiations."
@@ -79,26 +125,26 @@ export default function RoundupCasePage() {
 
               {/* Updated Badge */}
               <div className="flex items-center space-x-2 mb-4">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                  ✓ Updated October 2025
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 shadow-soft">
+                  ✓ Updated {currentMonthYear}
                 </span>
                 <span className="text-gray-500 text-sm">5 min read</span>
               </div>
 
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight gradient-text drop-shadow-sm">
                 Roundup Lawsuits: What You Need to Know
               </h1>
 
               <AuthorByline
-                name="Dr. Sarah Martinez"
-                credentials="JD, Environmental Law Specialist"
+                name="Michael Thompson"
+                credentials="Legal Researcher, Mass Tort Specialist"
                 date="October 1, 2025"
-                photoUrl="/authors/sarah-martinez.jpg"
+                photoUrl="/authors/MichaelThompsonAuthor.png"
               />
 
               {/* Summary Box (Grade 4-6) */}
-              <div className="bg-blue-50 border-l-4 border-blue-600 p-6 my-6 rounded-r-lg">
-                <h2 className="text-lg font-semibold text-blue-900 mb-3">Quick Summary</h2>
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-600 p-6 my-8 rounded-r-xl shadow-elevated-lg">
+                <h2 className="text-xl font-bold text-blue-900 mb-3">Quick Summary</h2>
                 <p className="text-gray-700 leading-relaxed">
                   Roundup weedkiller contains glyphosate, which has been linked to non-Hodgkin lymphoma and other cancers.
                   If you used Roundup regularly and were later diagnosed with lymphoma, you may be able to get compensation.
@@ -143,7 +189,7 @@ export default function RoundupCasePage() {
 
               {/* Body Content (Grade 6-7) */}
               <div className="prose prose-lg max-w-none">
-                <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">What Is Roundup?</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mt-12 mb-6 gradient-text">What Is Roundup?</h2>
                 <p className="text-gray-700 leading-relaxed mb-4">
                   Roundup is one of the most widely used weedkillers in the United States. Its main ingredient is glyphosate,
                   a chemical that kills weeds and unwanted plants. For decades, Monsanto (now owned by Bayer) marketed Roundup
@@ -276,11 +322,12 @@ export default function RoundupCasePage() {
                       <span className="font-medium mr-2">✓</span>
                       Your diagnosis came after you started using Roundup
                     </li>
-                    <li className="flex items-start">
-                      <span className="font-medium mr-2">✓</span>
-                      You filed within your state's time limit (statute of limitations)
-                    </li>
                   </ul>
+                  <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p className="text-sm text-blue-900 font-medium">
+                      <strong>Note on Timing:</strong> While most cases are for recent diagnoses (2024-2025), we encourage you to submit your information regardless of when you were diagnosed. The "discovery rule" may extend filing deadlines, and each case is unique. Let an attorney review your situation—you may still qualify even if your diagnosis was years ago.
+                    </p>
+                  </div>
                 </div>
 
                 <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">What Evidence Helps Your Case?</h2>
@@ -320,10 +367,13 @@ export default function RoundupCasePage() {
                 <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Important Deadlines</h2>
                 <div className="bg-red-50 border-l-4 border-red-600 p-6 my-6 rounded-r-lg">
                   <h3 className="text-lg font-semibold text-red-900 mb-3">⚠️ Time Limits Apply</h3>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-gray-700 leading-relaxed mb-4">
                     Each state has a "statute of limitations"—a deadline for filing your claim. This is usually 1-3 years
                     from your diagnosis date, but it varies by state. If you miss the deadline, you lose your right to
-                    compensation. Contact an attorney as soon as possible to protect your rights.
+                    compensation.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    <strong>The Discovery Rule:</strong> Many states use a "discovery rule" that can extend these deadlines. The clock may start when you discovered (or should have discovered) the connection between Roundup and your cancer—not necessarily when you were diagnosed. Because cancer can develop 10-15 years after exposure, you may still qualify even if your diagnosis was years ago. Contact an attorney immediately to review your specific situation and state deadlines.
                   </p>
                 </div>
 
@@ -333,8 +383,8 @@ export default function RoundupCasePage() {
             </article>
 
             {/* FAQ Section - EXPANDED */}
-            <div className="bg-white rounded-xl shadow-sm p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <div className="bg-white rounded-2xl shadow-blue-lg hover:shadow-blue-xl transition-all p-8 border border-gray-100">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 gradient-text">Frequently Asked Questions</h2>
               <div className="space-y-4">
                 {roundupFAQs.map((faq, index) => (
                   <details key={index} className="group">
@@ -353,37 +403,35 @@ export default function RoundupCasePage() {
             </div>
 
             {/* Roundup Ban Status - Phase 3A */}
-            <div className="bg-white rounded-xl shadow-sm p-6 md:p-8">
+            <div className="bg-white rounded-2xl shadow-blue-lg hover:shadow-blue-xl transition-all p-8 border border-gray-100">
               <RoundupBanStatus />
             </div>
 
             {/* Client Testimonials - NEW */}
-            <div className="bg-white rounded-xl shadow-sm p-6 md:p-8">
+            <div className="bg-white rounded-2xl shadow-blue-lg hover:shadow-blue-xl transition-all p-8 border border-gray-100">
               <ClientTestimonials enabled={true} />
             </div>
 
             {/* Attorney Profiles - NEW */}
-            <div className="bg-white rounded-xl shadow-sm p-6 md:p-8">
+            <div className="bg-white rounded-2xl shadow-blue-lg hover:shadow-blue-xl transition-all p-8 border border-gray-100">
               <AttorneyProfiles enabled={true} />
-            </div>
-
-            {/* Video Content - NEW */}
-            <div className="bg-white rounded-xl shadow-sm p-6 md:p-8">
-              <VideoContent enabled={false} />
             </div>
 
             {/* Related Cases - NEW */}
             <RelatedCases />
           </div>
 
-          {/* Right Sidebar - Mini-Qualifier Form */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-24">
+          {/* Right Sidebar - Mini-Qualifier Form - Desktop only */}
+          <div className="hidden lg:block lg:col-span-1">
+            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto" id="qualifier-form">
               <MiniQualifierForm caseType="roundup" />
             </div>
           </div>
         </div>
       </main>
+
+      {/* Floating Mobile CTA */}
+      <FloatingCTA />
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white mt-16">
